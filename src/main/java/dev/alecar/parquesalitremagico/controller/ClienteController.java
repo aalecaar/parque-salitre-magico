@@ -70,4 +70,10 @@ public class ClienteController {
         clienteService.saveCliente(cliente);
         return "redirect:/clientes";
     }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarCliente(@PathVariable Long id) {
+        clienteService.deleteCliente(id);
+        return "redirect:/clientes";
+    }
 }
