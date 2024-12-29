@@ -24,6 +24,10 @@
       <thead>
         <tr>
           <th>Nombre</th>
+          <th>Estatura Mínima</th>
+          <th>Descripción</th>
+          <th>Clasificación</th>
+          <th>Condiciones de Uso</th>
           <th>Estado</th>
           <th>Acciones</th>
         </tr>
@@ -31,6 +35,10 @@
       <tbody>
         <tr th:each="atraccion : ${atracciones}">
           <td th:text="${atraccion.nombre}"></td>
+          <td th:text="${atraccion.estaturaMinima + ' cm'}"></td>
+          <td th:text="${atraccion.descripcion}"></td>
+          <td th:text="${atraccion.clasificacion}"></td>
+          <td th:text="${atraccion.condicionesUso}"></td>
           <td th:text="${atraccion.disponible ? 'Disponible' : 'No Disponible'}"
             th:class="${atraccion.disponible ? 'status-enabled' : 'status-disabled'}">
           </td>
