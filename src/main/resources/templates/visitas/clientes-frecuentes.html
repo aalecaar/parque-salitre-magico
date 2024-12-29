@@ -54,6 +54,16 @@
       <p>No hay clientes frecuentes registrados.</p>
     </div>
 
+    <div class="info-text">
+      <p>Sistema de Descuentos:</p>
+      <ul>
+        <li>6 o más visitas: 50% de descuento</li>
+        <li>4-5 visitas: 25% de descuento</li>
+        <li>2-3 visitas: 10% de descuento</li>
+      </ul>
+      <p>Nota: Los descuentos solo aplican para clientes mayores de edad.</p>
+    </div>
+
     <div class="button-group">
       <a class="button-link" th:href="@{/}">Volver al inicio</a>
       <a th:if="${error}" class="button-link" th:href="@{/empleados}">Seleccionar otro empleado</a>
@@ -62,3 +72,4 @@
 </body>
 
 </html>
+
