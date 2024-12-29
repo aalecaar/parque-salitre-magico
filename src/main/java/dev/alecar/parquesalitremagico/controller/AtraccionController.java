@@ -38,13 +38,33 @@ public class AtraccionController {
     }
 
     @GetMapping("/editar/{id}")
-    public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
+    public String mostrarFormularioEditar(@PathVariable Long id, Model model,
+                                        HttpSession session, RedirectAttributes redirectAttributes) {
+        // Verificar si hay un empleado seleccionado y si es administrativo
+        Empleado empleadoSeleccionado = (Empleado) session.getAttribute("empleadoSeleccionado");
+        String cargoEmpleado = (String) session.getAttribute("cargoEmpleado");
+        
+        if (empleadoSeleccionado == null || !Cargo.ADMINISTRATIVO.name().equals(cargoEmpleado)) {
+            redirectAttributes.addFlashAttribute("error", "Para realizar esta acción debes ser empleado ADMINISTRATIVO");
+            return "redirect:/atracciones";
+        }
+        
         atraccionService.getAtraccionById(id).ifPresent(atraccion -> model.addAttribute("atraccion", atraccion));
         return "atracciones/editar";
     }
 
     @PostMapping("/editar/{id}")
-    public String actualizarAtraccion(@PathVariable Long id, @ModelAttribute Atraccion atraccion) {
+    public String actualizarAtraccion(@PathVariable Long id, @ModelAttribute Atraccion atraccion,
+                                    HttpSession session, RedirectAttributes redirectAttributes) {
+        // Verificar si hay un empleado seleccionado y si es administrativo
+        Empleado empleadoSeleccionado = (Empleado) session.getAttribute("empleadoSeleccionado");
+        String cargoEmpleado = (String) session.getAttribute("cargoEmpleado");
+        
+        if (empleadoSeleccionado == null || !Cargo.ADMINISTRATIVO.name().equals(cargoEmpleado)) {
+            redirectAttributes.addFlashAttribute("error", "Para realizar esta acción debes ser empleado ADMINISTRATIVO");
+            return "redirect:/atracciones";
+        }
+        
         atraccionService.updateAtraccion(id, atraccion);
         return "redirect:/atracciones";
     }
