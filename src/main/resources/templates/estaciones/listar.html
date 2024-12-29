@@ -26,6 +26,7 @@
           <th>Nombre</th>
           <th>Estado</th>
           <th>Acciones</th>
+          <th>Atracciones Disponibles</th>
         </tr>
       </thead>
       <tbody>
@@ -43,6 +44,9 @@
               method="post" style="display: inline;">
               <button type="submit" class="button-warning">Deshabilitar</button>
             </form>
+          </td>
+          <td>
+            <a th:href="@{/estaciones/{id}/atracciones(id=${estacion.id})}" class="button-link">Ver Atracciones</a>
           </td>
         </tr>
       </tbody>
