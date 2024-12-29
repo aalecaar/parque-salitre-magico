@@ -14,7 +14,7 @@ public class Ticket {
     @ManyToOne
     private Cliente cliente;
     @ManyToOne
-    private Estacion estación;
+    private Estacion estacion;
     private LocalDate fecha;
 
     public Ticket() {

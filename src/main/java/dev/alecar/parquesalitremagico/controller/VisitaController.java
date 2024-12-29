@@ -1,13 +1,11 @@
 package dev.alecar.parquesalitremagico.controller;
 
-import dev.alecar.parquesalitremagico.model.Atraccion;
-import dev.alecar.parquesalitremagico.model.Cargo;
-import dev.alecar.parquesalitremagico.model.Cliente;
-import dev.alecar.parquesalitremagico.model.Empleado;
+import dev.alecar.parquesalitremagico.model.*;
 import dev.alecar.parquesalitremagico.service.AtraccionService;
 import dev.alecar.parquesalitremagico.service.ClienteService;
 import dev.alecar.parquesalitremagico.service.ParqueService;
 import dev.alecar.parquesalitremagico.service.PromocionService;
+import dev.alecar.parquesalitremagico.service.TicketService;
 import dev.alecar.parquesalitremagico.service.VisitaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import jakarta.servlet.http.HttpSession;
@@ -38,6 +37,9 @@ public class VisitaController {
     @Autowired
     private PromocionService promocionService;
 
+    @Autowired
+    private TicketService ticketService;
+
     @GetMapping("/registrar/{clienteId}/{atraccionId}")
     public String registrarVisita(@PathVariable Long clienteId, @PathVariable Long atraccionId, 
                                 RedirectAttributes redirectAttributes) {
@@ -47,7 +49,14 @@ public class VisitaController {
                 .orElseThrow(() -> new IllegalArgumentException("Atracción no encontrada"));
 
         if (visitaService.verificarAccesoAtraccion(cliente, atraccion)) {
-            visitaService.registrarVisitaAtraccion(cliente, atraccion);
+            Visita visita = visitaService.registrarVisitaAtraccion(cliente, atraccion);
+            
+            Ticket ticket = new Ticket();
+            ticket.setCliente(cliente);
+            ticket.setEstacion(cliente.getEstacionRegistro());
+            ticket.setFecha(LocalDate.now());
+            ticketService.saveTicket(ticket);
+            
             parqueService.registrarEntradaCliente(cliente);
             parqueService.registrarSalidaCliente(cliente);
             redirectAttributes.addFlashAttribute("registroVisitaExitoso", true);
