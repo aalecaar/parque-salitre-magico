@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head>
-  <title>Listado de Atracciones</title>
+  <title>Lista de Atracciones</title>
   <meta charset="UTF-8">
   <th:block th:replace="fragments/styles :: styles" />
 </head>
@@ -10,46 +10,46 @@
 <body>
   <div class="container">
     <h1>Listado de Atracciones</h1>
+
+    <div th:if="${error}" class="error-message">
+      <p th:text="${error}"></p>
+    </div>
+
+    <div th:if="${session.empleadoSeleccionado}" class="info-message">
+      Empleado actual: <span th:text="${session.empleadoSeleccionado.nombre}"></span>
+      (<span th:text="${session.empleadoSeleccionado.cargo}"></span>)
+    </div>
+
     <table>
       <thead>
         <tr>
-          <th>ID</th>
           <th>Nombre</th>
-          <th>Descripción</th>
-          <th>Clasificación</th>
-          <th>Condiciones de Uso</th>
-          <th>Estatura Mínima</th>
-          <th>Disponible</th>
+          <th>Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="atraccion : ${atracciones}">
-          <td th:text="${atraccion.id}"></td>
           <td th:text="${atraccion.nombre}"></td>
-          <td th:text="${atraccion.descripcion}"></td>
-          <td th:text="${atraccion.clasificacion}"></td>
-          <td th:text="${atraccion.condicionesUso}"></td>
-          <td th:text="${atraccion.estaturaMinima}"></td>
-          <td th:text="${atraccion.disponible} ? 'Sí' : 'No'"></td>
-          <td class="actions-column">
-            <a class="button-link" th:href="@{/atracciones/editar/{id}(id=${atraccion.id})}">Editar</a>
-            <a class="button-link button-danger"
-              th:href="@{/atracciones/eliminar/{id}(id=${atraccion.id})}">Eliminar</a>
-            <form class="inline-form" th:if="${atraccion.disponible}"
-              th:action="@{/atracciones/{id}/no-disponible(id=${atraccion.id})}" method="post">
-              <button type="submit" class="button-danger">Marcar como No Disponible</button>
+          <td th:text="${atraccion.disponible ? 'Disponible' : 'No Disponible'}"
+            th:class="${atraccion.disponible ? 'status-enabled' : 'status-disabled'}">
+          </td>
+          <td>
+            <form th:if="${!atraccion.disponible}" th:action="@{/atracciones/{id}/disponible(id=${atraccion.id})}"
+              method="post" style="display: inline;">
+              <button type="submit" class="button-primary">Marcar como Disponible</button>
             </form>
-            <form class="inline-form" th:if="${!atraccion.disponible}"
-              th:action="@{/atracciones/{id}/disponible(id=${atraccion.id})}" method="post">
-              <button type="submit" class="button-success">Marcar como Disponible</button>
+            <form th:if="${atraccion.disponible}" th:action="@{/atracciones/{id}/no-disponible(id=${atraccion.id})}"
+              method="post" style="display: inline;">
+              <button type="submit" class="button-warning">Marcar como No Disponible</button>
             </form>
           </td>
         </tr>
       </tbody>
     </table>
-    <div>
-      <a class="button-link" th:href="@{/atracciones/crear}">Crear Nueva Atracción</a>
+
+    <div class="button-group">
+      <a th:if="${error}" class="button-link" th:href="@{/empleados}">Seleccionar otro empleado</a>
       <a class="button-link" th:href="@{/}">Volver al inicio</a>
     </div>
   </div>
