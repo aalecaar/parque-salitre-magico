@@ -1,6 +1,8 @@
 
 # Parque Salitre Mágico
 
+Hecho por Alejandro Cardona
+
 ## Requisitos Previos
 - Java Development Kit (JDK) 21
 - Maven 3.x
@@ -14,6 +16,9 @@
 ## Ejecución del Proyecto
 1. Ejecuta la clase principal ubicada en el siguiente path: `src/main/java/dev/alecar/parquesalitremagico/ParqueSalitreMagicoApplication.java`
 2. El servidor se iniciará en `http://localhost:8080`
+
+## Ejecución de Tests
+1. Ejecuta la clase ubicada en el siguiente path: `src/test/java/dev/alecar/parquesalitremagico/ParqueSalitreMagicoApplicationTests.java`
 
 ## Base de Datos H2
 El proyecto utiliza una base de datos H2 en memoria. Puedes acceder a la consola de H2 en:
