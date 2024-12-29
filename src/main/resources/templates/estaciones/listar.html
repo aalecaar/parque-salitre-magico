@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head>
-  <title>Listado de Estaciones</title>
+  <title>Lista de Estaciones</title>
   <meta charset="UTF-8">
   <th:block th:replace="fragments/styles :: styles" />
 </head>
@@ -10,35 +10,48 @@
 <body>
   <div class="container">
     <h1>Listado de Estaciones</h1>
+
+    <div th:if="${error}" class="error-message">
+      <p th:text="${error}"></p>
+    </div>
+
+    <div th:if="${session.empleadoSeleccionado}" class="info-message">
+      Empleado actual: <span th:text="${session.empleadoSeleccionado.nombre}"></span>
+      (<span th:text="${session.empleadoSeleccionado.cargo}"></span>)
+    </div>
+
     <table>
       <thead>
         <tr>
-          <th>ID</th>
           <th>Nombre</th>
-          <th>Habilitada</th>
+          <th>Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="estacion : ${estaciones}">
-          <td th:text="${estacion.id}"></td>
           <td th:text="${estacion.nombre}"></td>
-          <td th:text="${estacion.habilitada} ? 'Sí' : 'No'"></td>
-          <td class="actions-column">
-            <a class="button-link" th:href="@{/estaciones/{id}/atracciones(id=${estacion.id})}">Ver Atracciones</a>
-            <form class="inline-form" th:if="${estacion.habilitada}"
-              th:action="@{/estaciones/{id}/deshabilitar(id=${estacion.id})}" method="post">
-              <button type="submit" class="button-danger">Deshabilitar</button>
+          <td th:text="${estacion.habilitada ? 'Habilitada' : 'Deshabilitada'}"
+            th:class="${estacion.habilitada ? 'status-enabled' : 'status-disabled'}">
+          </td>
+          <td>
+            <form th:if="${!estacion.habilitada}" th:action="@{/estaciones/{id}/habilitar(id=${estacion.id})}"
+              method="post" style="display: inline;">
+              <button type="submit" class="button-primary">Habilitar</button>
             </form>
-            <form class="inline-form" th:if="${!estacion.habilitada}"
-              th:action="@{/estaciones/{id}/habilitar(id=${estacion.id})}" method="post">
-              <button type="submit" class="button-success">Habilitar</button>
+            <form th:if="${estacion.habilitada}" th:action="@{/estaciones/{id}/deshabilitar(id=${estacion.id})}"
+              method="post" style="display: inline;">
+              <button type="submit" class="button-warning">Deshabilitar</button>
             </form>
           </td>
         </tr>
       </tbody>
     </table>
-    <a class="button-link" th:href="@{/}">Volver al inicio</a>
+
+    <div class="button-group">
+      <a th:if="${error}" class="button-link" th:href="@{/empleados}">Seleccionar otro empleado</a>
+      <a class="button-link" th:href="@{/}">Volver al inicio</a>
+    </div>
   </div>
 </body>
 
