@@ -10,6 +10,9 @@ public class PromocionService {
     @Autowired
     private VisitaService visitaService;
 
+    @Autowired
+    private ClienteService clienteService;
+
     public int calcularDescuento(Cliente cliente) {
         if (!puedeRecibirPromociones(cliente)) {
             return 0;
@@ -41,6 +44,22 @@ public class PromocionService {
         int descuento = calcularDescuento(cliente);
         if (descuento > 0) {
             System.out.println("Simulando envío de promoción por email a: " + cliente.getCorreo());
+            System.out.println("¡Felicitaciones " + cliente.getNombre() + "! Has obtenido un " + descuento + "% de descuento en tu próxima visita.");
+        }
+    }
+
+    public void enviarPromocion(Long clienteId) {
+        Cliente cliente = clienteService.getClienteById(clienteId)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
+        
+        if (!puedeRecibirPromociones(cliente)) {
+            System.out.println("No se puede enviar promoción al cliente " + cliente.getNombre() + " por ser menor de edad");
+            return;
+        }
+
+        int descuento = calcularDescuento(cliente);
+        if (descuento > 0) {
+            System.out.println("Enviando promoción por email a: " + cliente.getCorreo());
             System.out.println("¡Felicitaciones " + cliente.getNombre() + "! Has obtenido un " + descuento + "% de descuento en tu próxima visita.");
         }
     }

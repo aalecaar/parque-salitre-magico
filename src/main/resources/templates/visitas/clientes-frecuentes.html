@@ -15,6 +15,9 @@
     </div>
     <div th:if="${mensajeError}" class="error-message" th:text="${mensajeError}">
     </div>
+    <div th:if="${error}" class="error-message">
+      <p th:text="${error}"></p>
+    </div>
 
     <table>
       <thead>
@@ -52,7 +55,8 @@
     </div>
 
     <div class="button-group">
-      <a class="button-link" th:href="@{/}">Volver al Inicio</a>
+      <a class="button-link" th:href="@{/}">Volver al inicio</a>
+      <a th:if="${error}" class="button-link" th:href="@{/empleados}">Seleccionar otro empleado</a>
     </div>
   </div>
 </body>
