@@ -23,6 +23,7 @@
     <table>
       <thead>
         <tr>
+          <th>ID</th>
           <th>Nombre</th>
           <th>Estatura Mínima</th>
           <th>Descripción</th>
@@ -34,6 +35,7 @@
       </thead>
       <tbody>
         <tr th:each="atraccion : ${atracciones}">
+          <td th:text="${atraccion.id}"></td>
           <td th:text="${atraccion.nombre}"></td>
           <td th:text="${atraccion.estaturaMinima + ' cm'}"></td>
           <td th:text="${atraccion.descripcion}"></td>
