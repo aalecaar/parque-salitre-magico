@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+  <title>Listado de Atracciones</title>
+  <meta charset="UTF-8">
+  <th:block th:replace="fragments/styles :: styles" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Listado de Atracciones</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Clasificación</th>
+          <th>Condiciones de Uso</th>
+          <th>Estatura Mínima</th>
+          <th>Disponible</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="atraccion : ${atracciones}">
+          <td th:text="${atraccion.id}"></td>
+          <td th:text="${atraccion.nombre}"></td>
+          <td th:text="${atraccion.descripcion}"></td>
+          <td th:text="${atraccion.clasificacion}"></td>
+          <td th:text="${atraccion.condicionesUso}"></td>
+          <td th:text="${atraccion.estaturaMinima}"></td>
+          <td th:text="${atraccion.disponible} ? 'Sí' : 'No'"></td>
+          <td class="actions-column">
+            <a class="button-link" th:href="@{/atracciones/editar/{id}(id=${atraccion.id})}">Editar</a>
+            <a class="button-link button-danger"
+              th:href="@{/atracciones/eliminar/{id}(id=${atraccion.id})}">Eliminar</a>
+            <form class="inline-form" th:if="${atraccion.disponible}"
+              th:action="@{/atracciones/{id}/no-disponible(id=${atraccion.id})}" method="post">
+              <button type="submit" class="button-danger">Marcar como No Disponible</button>
+            </form>
+            <form class="inline-form" th:if="${!atraccion.disponible}"
+              th:action="@{/atracciones/{id}/disponible(id=${atraccion.id})}" method="post">
+              <button type="submit" class="button-success">Marcar como Disponible</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <a class="button-link" th:href="@{/atracciones/crear}">Crear Nueva Atracción</a>
+      <a class="button-link" th:href="@{/}">Volver al inicio</a>
+    </div>
+  </div>
+</body>
+
+</html>

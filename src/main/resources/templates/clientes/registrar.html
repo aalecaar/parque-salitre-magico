@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+  <title>Registrar Cliente</title>
+  <meta charset="UTF-8">
+  <th:block th:replace="fragments/styles :: styles" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Registrar Cliente</h1>
+    <form th:action="@{/clientes/registrar}" th:object="${cliente}" method="post" class="form-group">
+      <div class="form-field">
+        <label for="estacionRegistro">Estación de Registro:</label>
+        <select th:field="*{estacionRegistro}" id="estacionRegistro" required>
+          <option value="">Seleccione una estación</option>
+          <option th:each="estacion : ${estaciones}" th:value="${estacion.id}" th:text="${estacion.nombre}">
+          </option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="nombre">Nombre:</label>
+        <input type="text" th:field="*{nombre}" id="nombre" required>
+      </div>
+
+      <div class="form-field">
+        <label for="cedula">Cédula:</label>
+        <input type="text" th:field="*{cedula}" id="cedula" required>
+      </div>
+
+      <div class="form-field">
+        <label for="telefono">Teléfono:</label>
+        <input type="text" th:field="*{telefono}" id="telefono" required>
+      </div>
+
+      <div class="form-field">
+        <label for="correo">Correo:</label>
+        <input type="email" th:field="*{correo}" id="correo" required>
+      </div>
+
+      <div class="form-field">
+        <label for="edad">Edad:</label>
+        <input type="number" th:field="*{edad}" id="edad" required>
+      </div>
+
+      <div class="form-field">
+        <label for="estatura">Estatura (cm):</label>
+        <input type="number" th:field="*{estatura}" id="estatura" required>
+      </div>
+
+      <div class="form-field">
+        <label for="familiarContacto">Familiar Contacto (solo menores de edad):</label>
+        <input type="text" th:field="*{familiarContacto}" id="familiarContacto">
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="button-link">Registrar</button>
+        <a class="button-link button-danger" th:href="@{/clientes}">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

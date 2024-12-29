@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <title>Listado de Clientes</title>
+    <meta charset="UTF-8">
+    <th:block th:replace="fragments/styles :: styles" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Listado de Clientes</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Estación de Registro</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Edad</th>
+                    <th>Estatura</th>
+                    <th>Familiar Contacto</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cliente : ${clientes}">
+                    <td th:text="${cliente.estacionRegistro?.nombre}"></td>
+                    <td th:text="${cliente.id}"></td>
+                    <td th:text="${cliente.nombre}"></td>
+                    <td th:text="${cliente.cedula}"></td>
+                    <td th:text="${cliente.telefono}"></td>
+                    <td th:text="${cliente.correo}"></td>
+                    <td th:text="${cliente.edad}"></td>
+                    <td th:text="${cliente.estatura}"></td>
+                    <td th:text="${cliente.familiarContacto}"></td>
+                    <td class="actions-column">
+                        <a class="button-link" th:href="@{/clientes/editar/{id}(id=${cliente.id})}">Editar</a>
+                        <a class="button-link button-danger"
+                            th:href="@{/clientes/eliminar/{id}(id=${cliente.id})}">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="button-group">
+            <a class="button-link" th:href="@{/clientes/registrar}">Registrar Nuevo Cliente</a>
+            <a class="button-link" th:href="@{/}">Volver al inicio</a>
+        </div>
+    </div>
+</body>
+
+</html>

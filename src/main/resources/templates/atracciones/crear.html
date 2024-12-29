@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <title>Crear Atracción</title>
+    <meta charset="UTF-8">
+    <th:block th:replace="fragments/styles :: styles" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Crear Atracción</h1>
+        <form th:action="@{/atracciones/crear}" th:object="${atraccion}" method="post" class="form-group">
+            <div class="form-field">
+                <label for="nombre">Nombre:</label>
+                <input type="text" th:field="*{nombre}" id="nombre" required>
+            </div>
+
+            <div class="form-field">
+                <label for="descripcion">Descripción:</label>
+                <textarea th:field="*{descripcion}" id="descripcion"></textarea>
+            </div>
+
+            <div class="form-field">
+                <label for="clasificacion">Clasificación:</label>
+                <input type="text" th:field="*{clasificacion}" id="clasificacion">
+            </div>
+
+            <div class="form-field">
+                <label for="condicionesUso">Condiciones de Uso:</label>
+                <textarea th:field="*{condicionesUso}" id="condicionesUso"></textarea>
+            </div>
+
+            <div class="form-field">
+                <label for="estaturaMinima">Estatura Mínima (cm):</label>
+                <input type="number" th:field="*{estaturaMinima}" id="estaturaMinima" required>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="button-link">Crear</button>
+                <a class="button-link button-danger" th:href="@{/atracciones}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

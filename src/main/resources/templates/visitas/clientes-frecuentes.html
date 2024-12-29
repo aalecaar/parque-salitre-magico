@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+  <title>Clientes Frecuentes</title>
+  <meta charset="UTF-8">
+  <th:block th:replace="fragments/styles :: styles" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Clientes Frecuentes</h1>
+
+    <div th:if="${mensajeExito}" class="success-message" th:text="${mensajeExito}">
+    </div>
+    <div th:if="${mensajeError}" class="error-message" th:text="${mensajeError}">
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Edad</th>
+          <th>Número de Visitas</th>
+          <th>Descuento Actual</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="cliente : ${clientes}">
+          <td th:text="${cliente.nombre}"></td>
+          <td th:text="${cliente.edad}"></td>
+          <td th:text="${visitaService.getNumeroVisitasCliente(cliente)}"></td>
+          <td th:text="${promocionService.calcularDescuento(cliente) + '%'}"></td>
+          <td>
+            <form th:if="${promocionService.puedeRecibirPromociones(cliente)}"
+              th:action="@{/visitas/enviar-promocion/{id}(id=${cliente.id})}" method="post" style="display: inline;">
+              <button type="submit" class="button-primary">
+                Enviar Promoción
+              </button>
+            </form>
+            <span th:unless="${promocionService.puedeRecibirPromociones(cliente)}" class="error-message">
+              Cliente menor de edad
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div th:if="${clientes.empty}" class="info-message">
+      <p>No hay clientes frecuentes registrados.</p>
+    </div>
+
+    <div class="button-group">
+      <a class="button-link" th:href="@{/}">Volver al Inicio</a>
+    </div>
+  </div>
+</body>
+
+</html>

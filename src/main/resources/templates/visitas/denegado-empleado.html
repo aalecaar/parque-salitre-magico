@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+  <title>Acceso Denegado</title>
+  <meta charset="UTF-8">
+  <th:block th:replace="fragments/styles :: styles" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Acceso Denegado</h1>
+    <div class="error-message" th:if="${error}">
+      <p th:text="${error}">Mensaje de error</p>
+    </div>
+    <div class="button-group">
+      <a class="button-link" th:href="@{/empleados}">Seleccionar otro empleado</a>
+      <a class="button-link" th:href="@{/}">Volver al inicio</a>
+    </div>
+  </div>
+</body>
+
+</html>

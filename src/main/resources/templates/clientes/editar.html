@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+  <title>Editar Cliente</title>
+  <meta charset="UTF-8">
+  <th:block th:replace="fragments/styles :: styles" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Editar Cliente</h1>
+    <form th:action="@{/clientes/editar/{id}(id=${cliente.id})}" th:object="${cliente}" method="post"
+      class="form-group">
+      <div class="form-field">
+        <label for="nombre">Nombre:</label>
+        <input type="text" th:field="*{nombre}" id="nombre" required>
+      </div>
+
+      <div class="form-field">
+        <label for="cedula">Cédula:</label>
+        <input type="text" th:field="*{cedula}" id="cedula" required>
+      </div>
+
+      <div class="form-field">
+        <label for="telefono">Teléfono:</label>
+        <input type="text" th:field="*{telefono}" id="telefono" required>
+      </div>
+
+      <div class="form-field">
+        <label for="correo">Correo:</label>
+        <input type="email" th:field="*{correo}" id="correo" required>
+      </div>
+
+      <div class="form-field">
+        <label for="edad">Edad:</label>
+        <input type="number" th:field="*{edad}" id="edad" required>
+      </div>
+
+      <div class="form-field">
+        <label for="estatura">Estatura (cm):</label>
+        <input type="number" th:field="*{estatura}" id="estatura" required>
+      </div>
+
+      <div class="form-field">
+        <label for="familiarContacto">Familiar de Contacto:</label>
+        <input type="text" th:field="*{familiarContacto}" id="familiarContacto">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="button-primary">Guardar Cambios</button>
+        <a class="button-link" th:href="@{/clientes}">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

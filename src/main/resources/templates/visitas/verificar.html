@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+  <title>Verificar Acceso a Atracciones</title>
+  <meta charset="UTF-8">
+  <th:block th:replace="fragments/styles :: styles" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Verificar Acceso a Atracciones</h1>
+
+    <div th:if="${session.empleadoSeleccionado}" class="info-message">
+      Empleado actual: <span th:text="${session.empleadoSeleccionado.nombre}"></span>
+      (<span th:text="${session.empleadoSeleccionado.cargo}"></span>)
+    </div>
+
+    <form id="verificarForm" method="get" class="form-group">
+      <div class="form-field">
+        <label for="clienteSelect">Seleccione un Cliente:</label>
+        <select id="clienteSelect" name="selectedCliente">
+          <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}"
+            th:selected="${cliente.id == selectedCliente}">
+          </option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="atraccionSelect">Seleccione una Atracción:</label>
+        <select id="atraccionSelect" name="selectedAtraccion">
+          <option th:each="atraccion : ${atracciones}" th:value="${atraccion.id}" th:text="${atraccion.nombre}"
+            th:selected="${atraccion.id == selectedAtraccion}">
+          </option>
+        </select>
+      </div>
+
+      <div class="button-group">
+        <button type="button" class="button-link" onclick="verificarYRegistrar()">Verificar y Registrar Visita</button>
+        <a class="button-link" th:href="@{/}">Volver al inicio</a>
+      </div>
+    </form>
+
+    <script th:inline="javascript">
+      function verificarYRegistrar() {
+        var clienteSelect = document.getElementById("clienteSelect");
+        var atraccionSelect = document.getElementById("atraccionSelect");
+        var selectedCliente = clienteSelect.value;
+        var selectedAtraccion = atraccionSelect.value;
+        var baseUrl = /*[[@{/visitas/registrar}]]*/ '';
+        window.location.href = baseUrl + '/' + selectedCliente + '/' + selectedAtraccion;
+      }
+    </script>
+  </div>
+</body>
+
+</html>

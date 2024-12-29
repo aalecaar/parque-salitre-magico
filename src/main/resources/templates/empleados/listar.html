@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Lista de Empleados</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Listado de Empleados</h1>
+
+        <div th:if="${empleadoSeleccionado}" class="alert alert-info">
+            Empleado seleccionado: <span th:text="${empleadoSeleccionado.nombre}"></span>
+            (<span th:text="${empleadoSeleccionado.cargo}"></span>)
+            <a th:href="@{/empleados/deseleccionar}" class="button-link">Deseleccionar</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Cargo</th>
+                    <th>Horario</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="empleado : ${empleados}">
+                    <td th:text="${empleado.id}"></td>
+                    <td th:text="${empleado.nombre}"></td>
+                    <td th:text="${empleado.cedula}"></td>
+                    <td th:text="${empleado.telefono}"></td>
+                    <td th:text="${empleado.correo}"></td>
+                    <td th:text="${empleado.cargo}"></td>
+                    <td th:text="${empleado.horario}"></td>
+                    <td class="actions-column">
+                        <a class="button-link" th:href="@{/empleados/editar/{id}(id=${empleado.id})}">Editar</a>
+                        <a class="button-link button-danger"
+                            th:href="@{/empleados/eliminar/{id}(id=${empleado.id})}">Eliminar</a>
+                        <form th:action="@{/empleados/seleccionar/{id}(id=${empleado.id})}" method="POST"
+                            style="display: inline;">
+                            <a href="#" onclick="this.closest('form').submit(); return false;" class="button-link"
+                                th:classappend="${empleadoSeleccionado != null and empleadoSeleccionado.id == empleado.id} ? 'disabled' : ''">
+                                Seleccionar
+                            </a>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="button-group">
+            <a class="button-link" th:href="@{/empleados/crear}">Crear Nuevo Empleado</a>
+            <a class="button-link" th:href="@{/}">Volver al inicio</a>
+        </div>
+    </div>
+</body>
+
+</html>

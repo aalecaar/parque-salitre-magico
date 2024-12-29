@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+  <title>Editar Empleado</title>
+  <meta charset="UTF-8">
+  <th:block th:replace="fragments/styles :: styles" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Editar Empleado</h1>
+    <form th:action="@{/empleados/editar/{id}(id=${empleado.id})}" th:object="${empleado}" method="post"
+      class="form-group">
+      <div class="form-field">
+        <label for="nombre">Nombre:</label>
+        <input type="text" th:field="*{nombre}" id="nombre" required>
+      </div>
+
+      <div class="form-field">
+        <label for="cedula">Cédula:</label>
+        <input type="text" th:field="*{cedula}" id="cedula" required>
+      </div>
+
+      <div class="form-field">
+        <label for="telefono">Teléfono:</label>
+        <input type="text" th:field="*{telefono}" id="telefono" required>
+      </div>
+
+      <div class="form-field">
+        <label for="correo">Correo:</label>
+        <input type="email" th:field="*{correo}" id="correo" required>
+      </div>
+
+      <div class="form-field">
+        <label for="cargo">Cargo:</label>
+        <select th:field="*{cargo}" id="cargo" required>
+          <option th:each="cargoOpt : ${T(dev.alecar.parquesalitremagico.model.Cargo).values()}" th:value="${cargoOpt}"
+            th:text="${cargoOpt}">
+          </option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="horario">Horario:</label>
+        <input type="text" th:field="*{horario}" id="horario" required>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="button-primary">Guardar Cambios</button>
+        <a class="button-link" th:href="@{/empleados}">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

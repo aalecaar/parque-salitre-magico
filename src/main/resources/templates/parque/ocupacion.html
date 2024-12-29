@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <title>Ocupación del Parque</title>
+    <meta charset="UTF-8">
+    <th:block th:replace="fragments/styles :: styles" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Ocupación del Parque</h1>
+        <div class="info-panel">
+            <p class="mensaje">
+                Número de clientes en el parque: <span class="highlight" th:text="${numeroClientes}"></span>
+            </p>
+            <p class="mensaje">
+                Porcentaje de ocupación: <span class="highlight"
+                    th:text="${#numbers.formatDecimal(porcentajeOcupacion, 1, 2)} + '%'"></span>
+            </p>
+            <p class="mensaje">
+                Estaciones habilitadas: <span class="highlight" th:text="${estacionesHabilitadas}"></span> de 5
+            </p>
+        </div>
+        <div class="info-text">
+            <p>Nota: Solo personal administrativo puede habilitar manualmente las estaciones. El número de estaciones
+                habilitadas se ajusta automáticamente según la ocupación del parque:</p>
+            <ul>
+                <li>Ocupación > 70%: 5 estaciones</li>
+                <li>Ocupación >= 40%: 4 estaciones</li>
+                <li>Ocupación >= 20%: 3 estaciones</li>
+                <li>Ocupación >= 10%: 2 estaciones</li>
+                <li>Ocupación < 10%: 1 estación</li>
+            </ul>
+        </div>
+        <a class="button-link" th:href="@{/}">Volver al inicio</a>
+    </div>
+</body>
+
+</html>

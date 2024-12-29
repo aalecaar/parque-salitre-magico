@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+  <title>Parque Salitre Mágico</title>
+  <meta charset="UTF-8">
+  <th:block th:replace="fragments/styles :: styles" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Bienvenido al Parque Salitre Mágico</h1>
+    <div th:if="${registroVisitaExitoso}" class="success-message">
+      Visita registrada exitosamente.
+    </div>
+    <ul class="nav-menu">
+      <li><a th:href="@{/atracciones}">Atracciones</a></li>
+      <li><a th:href="@{/clientes}">Clientes</a></li>
+      <li><a th:href="@{/empleados}">Empleados</a></li>
+      <li><a th:href="@{/estaciones}">Estaciones</a></li>
+      <li><a th:href="@{/parque/ocupacion}">Ocupación del Parque</a></li>
+      <li><a th:href="@{/visitas/verificar}">Verificar Acceso a Atracciones</a></li>
+      <li><a th:href="@{/visitas/visitas-atracciones}">Visitas a Las Atracciones</a></li>
+      <li><a th:href="@{/visitas/clientes-frecuentes}">Clientes Frecuentes</a></li>
+    </ul>
+  </div>
+</body>
+
+</html>
