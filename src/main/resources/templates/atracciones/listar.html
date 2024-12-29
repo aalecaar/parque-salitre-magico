@@ -43,6 +43,7 @@
             th:class="${atraccion.disponible ? 'status-enabled' : 'status-disabled'}">
           </td>
           <td class="actions-column">
+            <a class="button-link" th:href="@{/atracciones/editar/{id}(id=${atraccion.id})}">Editar</a>
             <form th:if="${!atraccion.disponible}" th:action="@{/atracciones/{id}/disponible(id=${atraccion.id})}"
               method="post" class="inline-form">
               <button type="submit" class="button-primary">Marcar como Disponible</button>
