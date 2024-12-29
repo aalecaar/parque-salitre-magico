@@ -48,19 +48,21 @@ public class PromocionService {
         }
     }
 
-    public void enviarPromocion(Long clienteId) {
+    public String enviarPromocion(Long clienteId) {
         Cliente cliente = clienteService.getClienteById(clienteId)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
         
         if (!puedeRecibirPromociones(cliente)) {
             System.out.println("No se puede enviar promoción al cliente " + cliente.getNombre() + " por ser menor de edad");
-            return;
+            return null;
         }
 
         int descuento = calcularDescuento(cliente);
         if (descuento > 0) {
             System.out.println("Enviando promoción por email a: " + cliente.getCorreo());
             System.out.println("¡Felicitaciones " + cliente.getNombre() + "! Has obtenido un " + descuento + "% de descuento en tu próxima visita.");
+            return "Promoción del " + descuento + "% enviada a " + cliente.getNombre();
         }
+        return null;
     }
 } 
