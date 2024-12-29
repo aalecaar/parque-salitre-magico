@@ -36,7 +36,7 @@ button[type='submit'] {
   min-width: 160px;
   max-width: none;
   text-align: center;
-  white-space: normal;
+  white-space: nowrap;
   height: auto;
   line-height: 1.2;
 }

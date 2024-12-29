@@ -34,13 +34,13 @@
           <td th:text="${atraccion.disponible ? 'Disponible' : 'No Disponible'}"
             th:class="${atraccion.disponible ? 'status-enabled' : 'status-disabled'}">
           </td>
-          <td>
+          <td class="actions-column">
             <form th:if="${!atraccion.disponible}" th:action="@{/atracciones/{id}/disponible(id=${atraccion.id})}"
-              method="post" style="display: inline;">
+              method="post" class="inline-form">
               <button type="submit" class="button-primary">Marcar como Disponible</button>
             </form>
             <form th:if="${atraccion.disponible}" th:action="@{/atracciones/{id}/no-disponible(id=${atraccion.id})}"
-              method="post" style="display: inline;">
+              method="post" class="inline-form">
               <button type="submit" class="button-warning">Marcar como No Disponible</button>
             </form>
           </td>
