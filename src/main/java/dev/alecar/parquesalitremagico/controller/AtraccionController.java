@@ -26,9 +26,18 @@ public class AtraccionController {
     }
 
     @GetMapping("/crear")
-    public String mostrarFormularioCrear(Model model) {
+    public String mostrarFormularioCrear(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        // Verificar si hay un empleado seleccionado y si es administrativo
+        Empleado empleadoSeleccionado = (Empleado) session.getAttribute("empleadoSeleccionado");
+        String cargoEmpleado = (String) session.getAttribute("cargoEmpleado");
+        
+        if (empleadoSeleccionado == null || !Cargo.ADMINISTRATIVO.name().equals(cargoEmpleado)) {
+            redirectAttributes.addFlashAttribute("error", "Para realizar esta acción debes ser empleado ADMINISTRATIVO");
+            return "redirect:/atracciones";
+        }
+        
         model.addAttribute("atraccion", new Atraccion());
-        return "atracciones/crear"; // Retorna la vista crear.html en la carpeta atracciones
+        return "atracciones/crear";
     }
 
     @PostMapping("/crear")
